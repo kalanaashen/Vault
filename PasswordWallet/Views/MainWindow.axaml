@@ -1,22 +1,107 @@
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:PasswordWallet.ViewModels"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="PasswordWallet.Views.MainWindow"
-        x:DataType="vm:MainViewModel"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="PasswordWallet">
+<Window
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Class="PasswordWallet.Views.MainWindow"
+    Width="700"
+    Height="520"
+    Title="Password Wallet">
 
-    <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-        <vm:MainViewModel />
-    </Design.DataContext>
+    <Grid
+        Margin="30"
+        RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,*"
+        ColumnDefinitions="140,*"
+        RowSpacing="15"
+        ColumnSpacing="15">
 
-    <TextBox Text="{Binding Greeting}"
-             HorizontalAlignment="Center"
-             VerticalAlignment="Center" />
+        <TextBlock
+            Grid.Row="0"
+            Grid.ColumnSpan="2"
+            Text="Password Wallet"
+            FontSize="30"
+            FontWeight="Bold"
+            HorizontalAlignment="Center"
+            Margin="0,0,0,20"/>
 
+        <TextBlock
+            Grid.Row="1"
+            Grid.Column="0"
+            Text="Website:"
+            VerticalAlignment="Center"/>
+
+        <TextBox
+            x:Name="WebsiteTextBox"
+            Grid.Row="1"
+            Grid.Column="1"
+            Watermark="Example: github.com"/>
+
+        <TextBlock
+            Grid.Row="2"
+            Grid.Column="0"
+            Text="Username:"
+            VerticalAlignment="Center"/>
+
+        <TextBox
+            x:Name="UsernameTextBox"
+            Grid.Row="2"
+            Grid.Column="1"
+            Watermark="Enter username or email"/>
+
+        <TextBlock
+            Grid.Row="3"
+            Grid.Column="0"
+            Text="Password:"
+            VerticalAlignment="Center"/>
+
+        <TextBox
+            x:Name="PasswordTextBox"
+            Grid.Row="3"
+            Grid.Column="1"
+            PasswordChar="●"
+            Watermark="Enter password"/>
+
+        <Button
+            Grid.Row="4"
+            Grid.Column="1"
+            Content="Save Password"
+            HorizontalAlignment="Left"
+            Click="SaveButton_Click"/>
+
+        <TextBlock
+            x:Name="MessageTextBlock"
+            Grid.Row="5"
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Center"
+            FontWeight="SemiBold"/>
+
+        <Border
+            Grid.Row="6"
+            Grid.ColumnSpan="2"
+            BorderBrush="Gray"
+            BorderThickness="1"
+            CornerRadius="8"
+            Padding="15">
+
+            <StackPanel Spacing="10">
+
+                <TextBlock
+                    Text="Saved Entry"
+                    FontSize="20"
+                    FontWeight="Bold"/>
+
+                <TextBlock
+                    x:Name="SavedWebsiteTextBlock"
+                    Text="Website: -"/>
+
+                <TextBlock
+                    x:Name="SavedUsernameTextBlock"
+                    Text="Username: -"/>
+
+                <TextBlock
+                    x:Name="SavedPasswordTextBlock"
+                    Text="Password: -"/>
+
+            </StackPanel>
+        </Border>
+
+    </Grid>
 </Window>
