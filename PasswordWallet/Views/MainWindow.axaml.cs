@@ -1,13 +1,21 @@
+using System.Collections.ObjectModel;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using PasswordWallet.Models;
 
 namespace PasswordWallet.Views;
 
 public partial class MainWindow : Window
 {
+    private readonly ObservableCollection<PasswordEntry> _passwordEntries;
+
     public MainWindow()
     {
         InitializeComponent();
+
+        _passwordEntries = new ObservableCollection<PasswordEntry>();
+
+        PasswordList.ItemsSource = _passwordEntries;
     }
 
     private void SaveButton_Click(
@@ -36,14 +44,21 @@ public partial class MainWindow : Window
             return;
         }
 
-        SavedWebsiteTextBlock.Text = $"Website: {website}";
-        SavedUsernameTextBlock.Text = $"Username: {username}";
-        SavedPasswordTextBlock.Text = $"Password: {password}";
+        var newEntry = new PasswordEntry
+        {
+            Website = website,
+            Username = username,
+            Password = password
+        };
 
-        MessageTextBlock.Text = "Password saved temporarily.";
+        _passwordEntries.Add(newEntry);
+
+        MessageTextBlock.Text = "Password added successfully.";
 
         WebsiteTextBox.Clear();
         UsernameTextBox.Clear();
         PasswordTextBox.Clear();
+
+        WebsiteTextBox.Focus();
     }
 }

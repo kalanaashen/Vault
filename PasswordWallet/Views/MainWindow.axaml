@@ -2,8 +2,11 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     x:Class="PasswordWallet.Views.MainWindow"
-    Width="700"
-    Height="520"
+    xmlns:models="using:PasswordWallet.Models"
+    Width="850"
+    Height="650"
+    MinWidth="650"
+    MinHeight="500"
     Title="Password Wallet">
 
     <Grid
@@ -13,6 +16,7 @@
         RowSpacing="15"
         ColumnSpacing="15">
 
+        <!-- Application title -->
         <TextBlock
             Grid.Row="0"
             Grid.ColumnSpan="2"
@@ -22,6 +26,7 @@
             HorizontalAlignment="Center"
             Margin="0,0,0,20"/>
 
+        <!-- Website -->
         <TextBlock
             Grid.Row="1"
             Grid.Column="0"
@@ -34,6 +39,7 @@
             Grid.Column="1"
             Watermark="Example: github.com"/>
 
+        <!-- Username -->
         <TextBlock
             Grid.Row="2"
             Grid.Column="0"
@@ -46,6 +52,7 @@
             Grid.Column="1"
             Watermark="Enter username or email"/>
 
+        <!-- Password -->
         <TextBlock
             Grid.Row="3"
             Grid.Column="0"
@@ -59,6 +66,7 @@
             PasswordChar="●"
             Watermark="Enter password"/>
 
+        <!-- Save button -->
         <Button
             Grid.Row="4"
             Grid.Column="1"
@@ -66,6 +74,7 @@
             HorizontalAlignment="Left"
             Click="SaveButton_Click"/>
 
+        <!-- Status message -->
         <TextBlock
             x:Name="MessageTextBlock"
             Grid.Row="5"
@@ -73,6 +82,7 @@
             HorizontalAlignment="Center"
             FontWeight="SemiBold"/>
 
+        <!-- Password list -->
         <Border
             Grid.Row="6"
             Grid.ColumnSpan="2"
@@ -81,26 +91,73 @@
             CornerRadius="8"
             Padding="15">
 
-            <StackPanel Spacing="10">
+            <Grid RowDefinitions="Auto,*" RowSpacing="15">
 
                 <TextBlock
-                    Text="Saved Entry"
+                    Grid.Row="0"
+                    Text="Saved Passwords"
                     FontSize="20"
                     FontWeight="Bold"/>
 
-                <TextBlock
-                    x:Name="SavedWebsiteTextBlock"
-                    Text="Website: -"/>
+                <ListBox
+                    x:Name="PasswordList"
+                    Grid.Row="1">
 
-                <TextBlock
-                    x:Name="SavedUsernameTextBlock"
-                    Text="Username: -"/>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate x:DataType="models:PasswordEntry">
+                            <Border
+                                BorderBrush="#555555"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Padding="15"
+                                Margin="0,0,0,10">
 
-                <TextBlock
-                    x:Name="SavedPasswordTextBlock"
-                    Text="Password: -"/>
+                                <Grid
+                                    ColumnDefinitions="120,*"
+                                    RowDefinitions="Auto,Auto,Auto"
+                                    RowSpacing="8"
+                                    ColumnSpacing="10">
 
-            </StackPanel>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Text="Website:"
+                                        FontWeight="Bold"/>
+
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Text="{Binding Website}"/>
+
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        Text="Username:"
+                                        FontWeight="Bold"/>
+
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Text="{Binding Username}"/>
+
+                                    <TextBlock
+                                        Grid.Row="2"
+                                        Grid.Column="0"
+                                        Text="Password:"
+                                        FontWeight="Bold"/>
+
+                                    <TextBlock
+                                        Grid.Row="2"
+                                        Grid.Column="1"
+                                        Text="{Binding Password}"/>
+
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+
+                </ListBox>
+            </Grid>
         </Border>
 
     </Grid>

@@ -1,0 +1,75 @@
+<Window
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Class="PasswordWallet.Views.LoginWindow"
+    Width="600"
+    Height="400"
+    MinWidth="600"
+    MinHeight="400"
+    Title="Login Screen">
+
+    <Grid
+        Margin="30"
+        RowSpacing="15"
+        ColumnSpacing="15"
+        RowDefinitions="Auto,Auto,Auto,Auto"
+        ColumnDefinitions="140,*">
+
+        <!-- Title -->
+        <TextBlock
+            Grid.Row="0"
+            Grid.ColumnSpan="2"
+            Text="Login"
+            FontSize="30"
+            FontWeight="Bold"
+            HorizontalAlignment="Center"
+            Margin="0,0,0,20"/>
+
+        <!-- Username -->
+        <TextBlock
+            Grid.Row="1"
+            Grid.Column="0"
+            Text="Username:"
+            VerticalAlignment="Center"/>
+
+        <TextBox
+            x:Name="UsernameTextBox"
+            Grid.Row="1"
+            Grid.Column="1"
+            PlaceholderText="Enter username"/>
+
+        <!-- Password -->
+        <TextBlock
+            Grid.Row="2"
+            Grid.Column="0"
+            Text="Password:"
+            VerticalAlignment="Center"/>
+
+        <TextBox
+            x:Name="PasswordTextBox"
+            Grid.Row="2"
+            Grid.Column="1"
+            PasswordChar="●"
+            PlaceholderText="Enter password"/>
+
+        <!-- Login button and message -->
+        <StackPanel
+            Grid.Row="3"
+            Grid.ColumnSpan="2"
+            Spacing="15"
+            HorizontalAlignment="Center">
+
+            <Button
+                Content="Login"
+                HorizontalAlignment="Center"
+                Click="LoginButton_Click"/>
+
+            <TextBlock
+                x:Name="MessageTextBlock"
+                HorizontalAlignment="Center"
+                FontWeight="SemiBold"/>
+
+        </StackPanel>
+
+    </Grid>
+</Window>
