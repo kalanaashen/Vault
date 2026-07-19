@@ -1,164 +1,378 @@
 <Window
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    x:Class="PasswordWallet.Views.MainWindow"
     xmlns:models="using:PasswordWallet.Models"
-    Width="850"
-    Height="650"
-    MinWidth="650"
-    MinHeight="500"
-    Title="Password Wallet">
+    x:Class="PasswordWallet.Views.MainWindow"
+    Width="1000"
+    Height="700"
+    MinWidth="750"
+    MinHeight="550"
+    Title="Password Wallet"
+    Background="#111827">
 
-    <Grid
-        Margin="30"
-        RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,*"
-        ColumnDefinitions="140,*"
-        RowSpacing="15"
-        ColumnSpacing="15">
+    <Grid>
 
-        <!-- Application title -->
-        <TextBlock
-            Grid.Row="0"
-            Grid.ColumnSpan="2"
-            Text="Password Wallet"
-            FontSize="30"
-            FontWeight="Bold"
-            HorizontalAlignment="Center"
-            Margin="0,0,0,20"/>
-
-        <!-- Website -->
-        <TextBlock
-            Grid.Row="1"
-            Grid.Column="0"
-            Text="Website:"
-            VerticalAlignment="Center"/>
-
-        <TextBox
-            x:Name="WebsiteTextBox"
-            Grid.Row="1"
-            Grid.Column="1"
-            Watermark="Example: github.com"/>
-
-        <!-- Username -->
-        <TextBlock
-            Grid.Row="2"
-            Grid.Column="0"
-            Text="Username:"
-            VerticalAlignment="Center"/>
-
-        <TextBox
-            x:Name="UsernameTextBox"
-            Grid.Row="2"
-            Grid.Column="1"
-            Watermark="Enter username or email"/>
-
-        <!-- Password -->
-        <TextBlock
-            Grid.Row="3"
-            Grid.Column="0"
-            Text="Password:"
-            VerticalAlignment="Center"/>
-
-        <TextBox
-            x:Name="PasswordTextBox"
-            Grid.Row="3"
-            Grid.Column="1"
-            PasswordChar="●"
-            Watermark="Enter password"/>
-
-        <!-- Save button -->
-        <Button
-            Grid.Row="4"
-            Grid.Column="1"
-            Content="Save Password"
+        <!-- Background decorations -->
+        <Ellipse
+            Width="360"
+            Height="360"
+            Fill="#1D4ED8"
+            Opacity="0.15"
             HorizontalAlignment="Left"
-            Click="SaveButton_Click"/>
+            VerticalAlignment="Top"
+            Margin="-140,-150,0,0"/>
 
-        <!-- Status message -->
-        <TextBlock
-            x:Name="MessageTextBlock"
-            Grid.Row="5"
-            Grid.ColumnSpan="2"
-            HorizontalAlignment="Center"
-            FontWeight="SemiBold"/>
+        <Ellipse
+            Width="420"
+            Height="420"
+            Fill="#7C3AED"
+            Opacity="0.12"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Margin="0,0,-160,-180"/>
 
-        <!-- Password list -->
-        <Border
-            Grid.Row="6"
-            Grid.ColumnSpan="2"
-            BorderBrush="Gray"
-            BorderThickness="1"
-            CornerRadius="8"
-            Padding="15">
+        <!-- Main page -->
+        <Grid
+            Margin="35"
+            RowDefinitions="Auto,Auto,*"
+            RowSpacing="22">
 
-            <Grid RowDefinitions="Auto,*" RowSpacing="15">
+            <!-- Header -->
+            <Border
+                Grid.Row="0"
+                Padding="22"
+                Background="#1F2937"
+                BorderBrush="#374151"
+                BorderThickness="1"
+                CornerRadius="16"
+                BoxShadow="0 10 30 0 #50000000">
 
-                <TextBlock
-                    Grid.Row="0"
-                    Text="Saved Passwords"
-                    FontSize="20"
-                    FontWeight="Bold"/>
+                <Grid ColumnDefinitions="Auto,*,Auto">
 
-                <ListBox
-                    x:Name="PasswordList"
-                    Grid.Row="1">
+                    <Border
+                        Grid.Column="0"
+                        Width="52"
+                        Height="52"
+                        Background="#2563EB"
+                        CornerRadius="14">
 
-                    <ListBox.ItemTemplate>
-                        <DataTemplate x:DataType="models:PasswordEntry">
-                            <Border
-                                BorderBrush="#555555"
+                        <TextBlock
+                            Text="🔐"
+                            FontSize="24"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"/>
+                    </Border>
+
+                    <StackPanel
+                        Grid.Column="1"
+                        Margin="16,0,0,0"
+                        VerticalAlignment="Center"
+                        Spacing="3">
+
+                        <TextBlock
+                            Text="Password Wallet"
+                            FontSize="26"
+                            FontWeight="Bold"
+                            Foreground="White"/>
+
+                        <TextBlock
+                            Text="Securely manage your saved credentials"
+                            FontSize="13"
+                            Foreground="#9CA3AF"/>
+                    </StackPanel>
+
+                    <TextBlock
+                        Grid.Column="2"
+                        Text="Welcome, Admin"
+                        Foreground="#D1D5DB"
+                        VerticalAlignment="Center"
+                        FontWeight="SemiBold"/>
+                </Grid>
+            </Border>
+
+            <!-- Add password form -->
+            <Border
+                Grid.Row="1"
+                Padding="24"
+                Background="#1F2937"
+                BorderBrush="#374151"
+                BorderThickness="1"
+                CornerRadius="16"
+                BoxShadow="0 10 30 0 #40000000">
+
+                <Grid
+                    RowDefinitions="Auto,Auto,Auto"
+                    RowSpacing="18">
+
+                    <TextBlock
+                        Grid.Row="0"
+                        Text="Add New Password"
+                        FontSize="20"
+                        FontWeight="Bold"
+                        Foreground="White"/>
+
+                    <!-- Input fields -->
+                    <Grid
+                        Grid.Row="1"
+                        ColumnDefinitions="*,*,*"
+                        ColumnSpacing="15">
+
+                        <!-- Website -->
+                        <StackPanel
+                            Grid.Column="0"
+                            Spacing="7">
+
+                            <TextBlock
+                                Text="Website"
+                                FontSize="13"
+                                FontWeight="SemiBold"
+                                Foreground="#D1D5DB"/>
+
+                            <TextBox
+                                x:Name="WebsiteTextBox"
+                                Height="44"
+                                Padding="13,0"
+                                Background="#111827"
+                                Foreground="White"
+                                BorderBrush="#4B5563"
                                 BorderThickness="1"
-                                CornerRadius="8"
-                                Padding="15"
-                                Margin="0,0,0,10">
+                                CornerRadius="9"
+                                Watermark="Example: github.com"
+                                VerticalContentAlignment="Center"/>
+                        </StackPanel>
 
-                                <Grid
-                                    ColumnDefinitions="120,*"
-                                    RowDefinitions="Auto,Auto,Auto"
-                                    RowSpacing="8"
-                                    ColumnSpacing="10">
+                        <!-- Username -->
+                        <StackPanel
+                            Grid.Column="1"
+                            Spacing="7">
 
-                                    <TextBlock
-                                        Grid.Row="0"
-                                        Grid.Column="0"
-                                        Text="Website:"
-                                        FontWeight="Bold"/>
+                            <TextBlock
+                                Text="Username or Email"
+                                FontSize="13"
+                                FontWeight="SemiBold"
+                                Foreground="#D1D5DB"/>
 
-                                    <TextBlock
-                                        Grid.Row="0"
-                                        Grid.Column="1"
-                                        Text="{Binding Website}"/>
+                            <TextBox
+                                x:Name="UsernameTextBox"
+                                Height="44"
+                                Padding="13,0"
+                                Background="#111827"
+                                Foreground="White"
+                                BorderBrush="#4B5563"
+                                BorderThickness="1"
+                                CornerRadius="9"
+                                Watermark="Enter username"
+                                VerticalContentAlignment="Center"/>
+                        </StackPanel>
 
-                                    <TextBlock
-                                        Grid.Row="1"
-                                        Grid.Column="0"
-                                        Text="Username:"
-                                        FontWeight="Bold"/>
+                        <!-- Password -->
+                        <StackPanel
+                            Grid.Column="2"
+                            Spacing="7">
 
-                                    <TextBlock
-                                        Grid.Row="1"
-                                        Grid.Column="1"
-                                        Text="{Binding Username}"/>
+                            <TextBlock
+                                Text="Password"
+                                FontSize="13"
+                                FontWeight="SemiBold"
+                                Foreground="#D1D5DB"/>
 
-                                    <TextBlock
-                                        Grid.Row="2"
-                                        Grid.Column="0"
-                                        Text="Password:"
-                                        FontWeight="Bold"/>
+                            <TextBox
+                                x:Name="PasswordTextBox"
+                                Height="44"
+                                Padding="13,0"
+                                Background="#111827"
+                                Foreground="White"
+                                BorderBrush="#4B5563"
+                                BorderThickness="1"
+                                CornerRadius="9"
+                                PasswordChar="●"
+                                Watermark="Enter password"
+                                VerticalContentAlignment="Center"/>
+                        </StackPanel>
+                    </Grid>
 
-                                    <TextBlock
-                                        Grid.Row="2"
-                                        Grid.Column="1"
-                                        Text="{Binding Password}"/>
+                    <!-- Button and message -->
+                    <Grid
+                        Grid.Row="2"
+                        ColumnDefinitions="Auto,*"
+                        ColumnSpacing="16">
 
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
+                        <Button
+                            Grid.Column="0"
+                            Height="44"
+                            Padding="24,0"
+                            Content="Save Password"
+                            FontSize="14"
+                            FontWeight="SemiBold"
+                            Foreground="White"
+                            Background="#2563EB"
+                            CornerRadius="9"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Click="SaveButton_Click"/>
 
-                </ListBox>
-            </Grid>
-        </Border>
+                        <TextBlock
+                            x:Name="MessageTextBlock"
+                            Grid.Column="1"
+                            Foreground="#4ADE80"
+                            VerticalAlignment="Center"
+                            FontWeight="SemiBold"
+                            TextWrapping="Wrap"/>
+                    </Grid>
+                </Grid>
+            </Border>
 
+            <!-- Saved passwords section -->
+            <Border
+                Grid.Row="2"
+                Padding="24"
+                Background="#1F2937"
+                BorderBrush="#374151"
+                BorderThickness="1"
+                CornerRadius="16"
+                BoxShadow="0 10 30 0 #40000000">
+
+                <Grid
+                    RowDefinitions="Auto,*"
+                    RowSpacing="18">
+
+                    <Grid
+                        Grid.Row="0"
+                        ColumnDefinitions="*,Auto">
+
+                        <StackPanel Spacing="3">
+
+                            <TextBlock
+                                Text="Saved Passwords"
+                                FontSize="20"
+                                FontWeight="Bold"
+                                Foreground="White"/>
+
+                            <TextBlock
+                                Text="Your stored login information"
+                                FontSize="13"
+                                Foreground="#9CA3AF"/>
+                        </StackPanel>
+
+                        <TextBox
+                            Grid.Column="1"
+                            Width="230"
+                            Height="40"
+                            Padding="12,0"
+                            Background="#111827"
+                            Foreground="White"
+                            BorderBrush="#4B5563"
+                            BorderThickness="1"
+                            CornerRadius="9"
+                            Watermark="Search passwords..."
+                            VerticalContentAlignment="Center"/>
+                    </Grid>
+
+                    <ListBox
+                        x:Name="PasswordList"
+                        Grid.Row="1"
+                        Background="Transparent"
+                        BorderThickness="0">
+
+                        <ListBox.ItemTemplate>
+                            <DataTemplate x:DataType="models:PasswordEntry">
+
+                                <Border
+                                    Padding="16"
+                                    Margin="0,0,0,12"
+                                    Background="#111827"
+                                    BorderBrush="#374151"
+                                    BorderThickness="1"
+                                    CornerRadius="12">
+
+                                    <Grid
+                                        ColumnDefinitions="2*,2*,2*,Auto"
+                                        ColumnSpacing="20">
+
+                                        <!-- Website -->
+                                        <StackPanel
+                                            Grid.Column="0"
+                                            Spacing="4">
+
+                                            <TextBlock
+                                                Text="Website"
+                                                FontSize="11"
+                                                Foreground="#6B7280"/>
+
+                                            <TextBlock
+                                                Text="{Binding Website}"
+                                                FontSize="14"
+                                                FontWeight="SemiBold"
+                                                Foreground="White"
+                                                TextTrimming="CharacterEllipsis"/>
+                                        </StackPanel>
+
+                                        <!-- Username -->
+                                        <StackPanel
+                                            Grid.Column="1"
+                                            Spacing="4">
+
+                                            <TextBlock
+                                                Text="Username"
+                                                FontSize="11"
+                                                Foreground="#6B7280"/>
+
+                                            <TextBlock
+                                                Text="{Binding Username}"
+                                                FontSize="14"
+                                                Foreground="#D1D5DB"
+                                                TextTrimming="CharacterEllipsis"/>
+                                        </StackPanel>
+
+                                        <!-- Password -->
+                                        <StackPanel
+                                            Grid.Column="2"
+                                            Spacing="4">
+
+                                            <TextBlock
+                                                Text="Password"
+                                                FontSize="11"
+                                                Foreground="#6B7280"/>
+
+                                            <TextBlock
+                                                Text="{Binding Password}"
+                                                FontSize="14"
+                                                Foreground="#D1D5DB"
+                                                TextTrimming="CharacterEllipsis"/>
+                                        </StackPanel>
+
+                                        <!-- Actions -->
+                                        <StackPanel
+                                            Grid.Column="3"
+                                            Orientation="Horizontal"
+                                            Spacing="8"
+                                            VerticalAlignment="Center">
+
+                                            <Button
+                                                Content="Edit"
+                                                Padding="16,7"
+                                                Background="#374151"
+                                                Foreground="White"
+                                                CornerRadius="7"
+                                                HorizontalContentAlignment="Center"
+                                                VerticalContentAlignment="Center"/>
+
+                                            <Button
+                                                Content="Delete"
+                                                Padding="16,7"
+                                                Background="#B91C1C"
+                                                Foreground="White"
+                                                CornerRadius="7"
+                                                HorizontalContentAlignment="Center"
+                                                VerticalContentAlignment="Center"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </Border>
+        </Grid>
     </Grid>
 </Window>
