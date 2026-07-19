@@ -2,74 +2,155 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     x:Class="PasswordWallet.Views.LoginWindow"
-    Width="600"
-    Height="400"
-    MinWidth="600"
-    MinHeight="400"
-    Title="Login Screen">
+    Width="900"
+    Height="600"
+    MinWidth="700"
+    MinHeight="500"
+    Title="Password Wallet"
+    Background="#111827">
 
-    <Grid
-        Margin="30"
-        RowSpacing="15"
-        ColumnSpacing="15"
-        RowDefinitions="Auto,Auto,Auto,Auto"
-        ColumnDefinitions="140,*">
+    <Grid>
 
-        <!-- Title -->
-        <TextBlock
-            Grid.Row="0"
-            Grid.ColumnSpan="2"
-            Text="Login"
-            FontSize="30"
-            FontWeight="Bold"
+        <!-- Background decoration -->
+        <Ellipse
+            Width="320"
+            Height="320"
+            Fill="#1D4ED8"
+            Opacity="0.18"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Margin="-100,-120,0,0"/>
+
+        <Ellipse
+            Width="380"
+            Height="380"
+            Fill="#7C3AED"
+            Opacity="0.15"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Margin="0,0,-130,-150"/>
+
+        <!-- Login card -->
+        <Border
+            Width="390"
+            Padding="32"
+            Background="#1F2937"
+            BorderBrush="#374151"
+            BorderThickness="1"
+            CornerRadius="18"
+            BoxShadow="0 18 45 0 #70000000"
             HorizontalAlignment="Center"
-            Margin="0,0,0,20"/>
+            VerticalAlignment="Center">
 
-        <!-- Username -->
-        <TextBlock
-            Grid.Row="1"
-            Grid.Column="0"
-            Text="Username:"
-            VerticalAlignment="Center"/>
+            <StackPanel Spacing="18">
 
-        <TextBox
-            x:Name="UsernameTextBox"
-            Grid.Row="1"
-            Grid.Column="1"
-            PlaceholderText="Enter username"/>
+                <!-- Logo -->
+                <Border
+                    Width="64"
+                    Height="64"
+                    Background="#2563EB"
+                    CornerRadius="18"
+                    HorizontalAlignment="Center">
 
-        <!-- Password -->
-        <TextBlock
-            Grid.Row="2"
-            Grid.Column="0"
-            Text="Password:"
-            VerticalAlignment="Center"/>
+                    <TextBlock
+                        Text="🔐"
+                        FontSize="30"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"/>
+                </Border>
 
-        <TextBox
-            x:Name="PasswordTextBox"
-            Grid.Row="2"
-            Grid.Column="1"
-            PasswordChar="●"
-            PlaceholderText="Enter password"/>
+                <!-- Title -->
+                <StackPanel Spacing="6">
 
-        <!-- Login button and message -->
-        <StackPanel
-            Grid.Row="3"
-            Grid.ColumnSpan="2"
-            Spacing="15"
-            HorizontalAlignment="Center">
+                    <TextBlock
+                        Text="Welcome Back"
+                        FontSize="28"
+                        FontWeight="Bold"
+                        Foreground="White"
+                        HorizontalAlignment="Center"/>
 
-            <Button
-                Content="Login"
-                HorizontalAlignment="Center"
-                Click="LoginButton_Click"/>
+                    <TextBlock
+                        Text="Sign in to access your password wallet"
+                        FontSize="14"
+                        Foreground="#9CA3AF"
+                        HorizontalAlignment="Center"/>
+                </StackPanel>
 
-            <TextBlock
-                x:Name="MessageTextBlock"
-                HorizontalAlignment="Center"
-                FontWeight="SemiBold"/>
+                <!-- Username -->
+                <StackPanel Spacing="7">
 
-        </StackPanel>
+                    <TextBlock
+                        Text="Username"
+                        FontSize="14"
+                        FontWeight="SemiBold"
+                        Foreground="#D1D5DB"/>
 
+                    <TextBox
+                        x:Name="UsernameTextBox"
+                        Height="45"
+                        Padding="14,0"
+                        Background="#111827"
+                        Foreground="White"
+                        BorderBrush="#4B5563"
+                        BorderThickness="1"
+                        CornerRadius="10"
+                        PlaceholderText="Enter your username"/>
+                </StackPanel>
+
+                <!-- Password -->
+                <StackPanel Spacing="7">
+
+                    <TextBlock
+                        Text="Password"
+                        FontSize="14"
+                        FontWeight="SemiBold"
+                        Foreground="#D1D5DB"/>
+
+                    <TextBox
+                        x:Name="PasswordTextBox"
+                        Height="45"
+                        Padding="14,0"
+                        Background="#111827"
+                        Foreground="White"
+                        BorderBrush="#4B5563"
+                        BorderThickness="1"
+                        CornerRadius="10"
+                        PasswordChar="●"
+                        PlaceholderText="Enter your password"/>
+                </StackPanel>
+
+                <!-- Login button -->
+                <Button
+                    Height="46"
+                    Margin="0,8,0,0"
+                    Content="Login"
+                    FontSize="15"
+                    FontWeight="SemiBold"
+                    Foreground="White"
+                    Background="#2563EB"
+                    CornerRadius="10"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Click="LoginButton_Click"/>
+
+                <!-- Message -->
+                <TextBlock
+                    x:Name="MessageTextBlock"
+                    FontSize="14"
+                    Foreground="#F87171"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap"/>
+
+                <!-- Footer -->
+                <TextBlock
+                    Text="Securely manage your credentials"
+                    FontSize="12"
+                    Foreground="#6B7280"
+                    HorizontalAlignment="Center"
+                    Margin="0,4,0,0"/>
+
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>

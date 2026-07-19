@@ -3,6 +3,8 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using PasswordWallet.Models;
 using System;
+using Avalonia.Media;
+
 namespace PasswordWallet.Views;
 
 public partial class LoginWindow : Window
@@ -45,6 +47,8 @@ public partial class LoginWindow : Window
             Close();
         }else{
             Console.WriteLine("Login UnSuccssful");
+            MessageTextBlock.Foreground=Brushes.Red;
+            MessageTextBlock.Text="Username or Password Invaild";
         }
        
 
