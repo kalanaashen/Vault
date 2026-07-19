@@ -353,6 +353,8 @@
                                                 Padding="16,7"
                                                 Background="#374151"
                                                 Foreground="White"
+                                                CommandParameter="{Binding}"
+                                                Click="EditButton_Click"
                                                 CornerRadius="7"
                                                 HorizontalContentAlignment="Center"
                                                 VerticalContentAlignment="Center"/>
@@ -360,9 +362,11 @@
                                             <Button
                                                 Content="Delete"
                                                 Padding="16,7"
+                                                CommandParameter="{Binding}"
                                                 Background="#B91C1C"
                                                 Foreground="White"
                                                 CornerRadius="7"
+                                                Click="DeleteButton_Click"
                                                 HorizontalContentAlignment="Center"
                                                 VerticalContentAlignment="Center"/>
                                         </StackPanel>

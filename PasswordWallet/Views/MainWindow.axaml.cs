@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using PasswordWallet.Models;
+using System;
 
 namespace PasswordWallet.Views;
 
@@ -18,6 +19,32 @@ public partial class MainWindow : Window
         PasswordList.ItemsSource = _passwordEntries;
     }
 
+
+    private void DeleteButton_Click(object? sender,RoutedEventArgs e){
+
+
+        if(sender is Button button &&  button.CommandParameter is PasswordEntry entry){
+                 
+                    bool isRemoved=_passwordEntries.Remove(entry);
+
+                    if(isRemoved){
+                        MessageTextBlock.Text="Record Deleted Successfully";
+                    }else{
+                        MessageTextBlock.Text="Record Deletion UnSuccessfully";
+                    }
+                        
+
+        }
+
+
+
+    }
+
+    private void EditButton_Click(object? sender,RoutedEventArgs e){
+        if(sender is Button  button && button.CommandParameter is PasswordEntry entry){
+            Console.WriteLine("test");
+        }
+    }
     private void SaveButton_Click(
         object? sender,
         RoutedEventArgs e)
