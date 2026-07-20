@@ -12,20 +12,18 @@ public partial class EditWindow : Window
 
     private PasswordEntry _entry;
 
-    public EditWindow()
+    public EditWindow(PasswordEntry entry)
     {
         InitializeComponent();
-
-    }
-
-    public void Load_Data(PasswordEntry entry)
-    {
         _entry = entry;
         UsernameTextBox.Text = entry.Username;
         WebsiteTextBox.Text = entry.Website;
         PasswordTextBox.Text = entry.Password;
 
+
     }
+
+  
     private   void ConfrimButton_Click(object? sender, RoutedEventArgs e)
     {
         if (_entry == null)

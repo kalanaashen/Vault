@@ -3,20 +3,24 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using PasswordWallet.Models;
 using System;
+using Avalonia.Controls.Documents;
 
 namespace PasswordWallet.Views;
 
 public partial class MainWindow : Window
 {
     private readonly ObservableCollection<PasswordEntry> _passwordEntries;
+    private readonly ObservableCollection<PasswordEntry> _filteredEntries;
+
 
     public MainWindow()
     {
         InitializeComponent();
 
         _passwordEntries = new ObservableCollection<PasswordEntry>();
+        _filteredEntries = new ObservableCollection<PasswordEntry>();
 
-        PasswordList.ItemsSource = _passwordEntries;
+        PasswordList.ItemsSource = _filteredEntries;
     }
 
 
@@ -28,6 +32,7 @@ public partial class MainWindow : Window
         {
 
             bool isRemoved = _passwordEntries.Remove(entry);
+            _filteredEntries.Remove(entry);
 
             if (isRemoved)
             {
@@ -44,19 +49,61 @@ public partial class MainWindow : Window
 
 
     }
+    private void SearchTextBox_TextChanged(object? sender, TextChangedEventArgs e)
+    {
 
+        ApplySearchFilter();
+
+
+
+    }
+    private void ApplySearchFilter()
+    {
+        string searchText = SearchTextBox.Text?.Trim() ?? "";
+        Search(searchText);
+
+    }
+    private void Search(string text)
+    {
+
+        _filteredEntries.Clear();
+        foreach (var entry in this._passwordEntries)
+
+        {
+
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                _filteredEntries.Add(entry);
+                continue;
+            }
+
+            bool websiteMatches =
+                entry.Website.Contains(
+                    text,
+                    StringComparison.OrdinalIgnoreCase);
+
+            bool usernameMatches =
+                entry.Username.Contains(
+                    text,
+                    StringComparison.OrdinalIgnoreCase);
+
+            if (websiteMatches || usernameMatches)
+            {
+                _filteredEntries.Add(entry);
+            }
+
+        }
+    }
     private async void EditButton_Click(object? sender, RoutedEventArgs e)
     {
         if (sender is Button button && button.CommandParameter is PasswordEntry entry)
         {
-            var dialog = new EditWindow();
-            dialog.Load_Data(entry);
+            var dialog = new EditWindow(entry);
+
+
             await dialog.ShowDialog(this);
-            int index = _passwordEntries.IndexOf(entry);
 
-            _passwordEntries.RemoveAt(index);
-
-            _passwordEntries.Insert(index, entry);
+            ApplySearchFilter();
             MessageTextBlock.Text = "Record updated successfully.";
 
 
@@ -98,6 +145,7 @@ public partial class MainWindow : Window
         };
 
         _passwordEntries.Add(newEntry);
+        _filteredEntries.Add(newEntry);
 
         MessageTextBlock.Text = "Password added successfully.";
 
