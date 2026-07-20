@@ -20,19 +20,24 @@ public partial class MainWindow : Window
     }
 
 
-    private void DeleteButton_Click(object? sender,RoutedEventArgs e){
+    private void DeleteButton_Click(object? sender, RoutedEventArgs e)
+    {
 
 
-        if(sender is Button button &&  button.CommandParameter is PasswordEntry entry){
-                 
-                    bool isRemoved=_passwordEntries.Remove(entry);
+        if (sender is Button button && button.CommandParameter is PasswordEntry entry)
+        {
 
-                    if(isRemoved){
-                        MessageTextBlock.Text="Record Deleted Successfully";
-                    }else{
-                        MessageTextBlock.Text="Record Deletion UnSuccessfully";
-                    }
-                        
+            bool isRemoved = _passwordEntries.Remove(entry);
+
+            if (isRemoved)
+            {
+                MessageTextBlock.Text = "Record Deleted Successfully";
+            }
+            else
+            {
+                MessageTextBlock.Text = "Record Deletion UnSuccessfully";
+            }
+
 
         }
 
@@ -40,11 +45,25 @@ public partial class MainWindow : Window
 
     }
 
-    private void EditButton_Click(object? sender,RoutedEventArgs e){
-        if(sender is Button  button && button.CommandParameter is PasswordEntry entry){
-            Console.WriteLine("test");
+    private async void EditButton_Click(object? sender, RoutedEventArgs e)
+    {
+        if (sender is Button button && button.CommandParameter is PasswordEntry entry)
+        {
+            var dialog = new EditWindow();
+            dialog.Load_Data(entry);
+            await dialog.ShowDialog(this);
+            int index = _passwordEntries.IndexOf(entry);
+
+            _passwordEntries.RemoveAt(index);
+
+            _passwordEntries.Insert(index, entry);
+            MessageTextBlock.Text = "Record updated successfully.";
+
+
         }
     }
+
+
     private void SaveButton_Click(
         object? sender,
         RoutedEventArgs e)
