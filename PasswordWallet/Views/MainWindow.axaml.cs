@@ -57,6 +57,19 @@ public partial class MainWindow : Window
 
 
     }
+    private void ShowPassword_Click(
+    object? sender,
+    RoutedEventArgs e)
+{
+    if (sender is Button button &&
+        button.CommandParameter is PasswordEntry entry)
+    {
+        entry.IsPasswordVisible = !entry.IsPasswordVisible;
+        
+        
+        ApplySearchFilter();
+    }
+}
     private void ApplySearchFilter()
     {
         string searchText = SearchTextBox.Text?.Trim() ?? "";

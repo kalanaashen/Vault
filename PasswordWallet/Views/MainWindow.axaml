@@ -48,7 +48,7 @@
                 BoxShadow="0 10 30 0 #50000000">
 
                 <Grid ColumnDefinitions="Auto,*,Auto">
-                
+
                     <Border
                         Grid.Column="0"
                         Width="52"
@@ -253,7 +253,7 @@
                                 FontSize="13"
                                 Foreground="#9CA3AF"/>
                         </StackPanel>
-   
+
                         <TextBox
                             Grid.Column="1"
                             x:Name="SearchTextBox"
@@ -337,10 +337,14 @@
                                                 Foreground="#6B7280"/>
 
                                             <TextBlock
-                                                Text="{Binding Password}"
+                                                Text="{Binding DisplayPassword}"
                                                 FontSize="14"
                                                 Foreground="#D1D5DB"
                                                 TextTrimming="CharacterEllipsis"/>
+                                            <Button
+                                                Content="👁"
+                                                Click="ShowPassword_Click"
+                                                CommandParameter="{Binding}" />
                                         </StackPanel>
 
                                         <!-- Actions -->

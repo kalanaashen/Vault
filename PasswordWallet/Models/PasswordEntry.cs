@@ -11,6 +11,22 @@ namespace PasswordWallet.Models
         public String Username {get;set;}="";
         public String Password {get;set;}="";
 
+        public bool IsPasswordVisible {get;set;}=false;
+        public String DisplayPassword
+        {
+
+            get
+            {
+                if (IsPasswordVisible)
+                {
+                    return Password;
+                }
+                else
+                {
+                    return "XXXXXX";
+                }
+            }
+        }
 
 
 
