@@ -17,8 +17,19 @@ namespace PasswordWallet.Models
 
 
         public int Length { get; set; } = 0;
+        public PasswordGenarator()
+        {
+            
+        }
+        public PasswordGenarator(bool IsNumeric,bool IsUpperCase,bool IsLowerCase,bool IsCharacter,int Length)
+        {
+            this.IsNumeric=IsNumeric;
+            this.IsUpperCase=IsUpperCase;
+            this.IsCharacter=IsCharacter;
+            this.IsLowerCase=IsLowerCase;
+            this.Length=Length;
 
-
+        }
         public string GeneratePassword()
         {
 
