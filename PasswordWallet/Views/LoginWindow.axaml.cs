@@ -9,25 +9,25 @@ namespace PasswordWallet.Views;
 
 public partial class LoginWindow : Window
 {
-   
+
 
     public LoginWindow()
     {
         InitializeComponent();
 
-   
+
     }
 
     private void LoginButton_Click(
         object? sender,
         RoutedEventArgs e)
     {
-        
+
         string username = UsernameTextBox.Text?.Trim() ?? "";
         string password = PasswordTextBox.Text ?? "";
 
 
-         if (string.IsNullOrWhiteSpace(username))
+        if (string.IsNullOrWhiteSpace(username))
         {
             MessageTextBlock.Text = "Please enter a username.";
             return;
@@ -39,25 +39,30 @@ public partial class LoginWindow : Window
             return;
         }
 
-        if(username=="admin" && password=="admin"){
+        if (username == "admin" && password == "admin")
+        {
             Console.WriteLine("Login Successful");
 
-            MainWindow mainwindow=new MainWindow();
-            mainwindow.Show();
-            Close();
-        }else{
-            Console.WriteLine("Login UnSuccssful");
-            MessageTextBlock.Foreground=Brushes.Red;
-            MessageTextBlock.Text="Username or Password Invaild";
-        }
-       
+            DashboardWindow dashboardWindow =
+            new DashboardWindow();
 
-        var newUser=new User(username,password);
+            dashboardWindow.Show();
+            Close();
+        }
+        else
+        {
+            Console.WriteLine("Login UnSuccssful");
+            MessageTextBlock.Foreground = Brushes.Red;
+            MessageTextBlock.Text = "Username or Password Invaild";
+        }
+
+
+        var newUser = new User(username, password);
 
 
         UsernameTextBox.Clear();
         PasswordTextBox.Clear();
 
-      
+
     }
 }
