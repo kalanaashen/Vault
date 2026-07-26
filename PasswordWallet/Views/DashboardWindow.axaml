@@ -1,5 +1,6 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        
         x:Class="PasswordWallet.Views.DashboardWindow"
         Title="Password Wallet Dashboard"
         Width="900"
@@ -39,16 +40,26 @@
 
                     <Button Content="Dashboard"
                             Height="45"
-                            HorizontalContentAlignment="Left"/>
+                            CornerRadius="10"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Click="OpenDashboardHome_Click"/>
 
                     <Button Content="Manage Passwords"
                             Height="45"
-                            HorizontalContentAlignment="Left"
+                            CornerRadius="10"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
                             Click="OpenPasswordManager_Click"/>
 
                     <Button Content="Password Generator"
                             Height="45"
-                            HorizontalContentAlignment="Left"
+                            CornerRadius="10"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
                             Click="OpenPasswordGenerator_Click"/>
 
                 </StackPanel>
@@ -58,160 +69,19 @@
                         Height="42"
                         Background="#B84040"
                         Foreground="White"
+                        CornerRadius="10"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
                         Click="Logout_Click"/>
 
             </Grid>
 
         </Border>
 
-        <!-- Main content -->
+        <!-- Right Side Dynamic Content -->
         <ScrollViewer Grid.Column="1">
-
-            <StackPanel Margin="35"
-                        Spacing="25">
-
-                <StackPanel>
-                    <TextBlock Text="Dashboard"
-                               Foreground="White"
-                               FontSize="30"
-                               FontWeight="Bold"/>
-
-                    <TextBlock Text="Choose what you want to do."
-                               Foreground="#AAAAAE"
-                               FontSize="15"/>
-                </StackPanel>
-
-                <Grid ColumnDefinitions="*,*"
-                      RowDefinitions="Auto,Auto"
-                      ColumnSpacing="20"
-                      RowSpacing="20">
-
-                    <!-- Password Manager Card -->
-                    <Border Grid.Row="0"
-                            Grid.Column="0"
-                            Background="#28283E"
-                            CornerRadius="16"
-                            Padding="24">
-
-                        <StackPanel Spacing="14">
-
-                            <TextBlock Text="🔑"
-                                       FontSize="36"/>
-
-                            <TextBlock Text="Password Manager"
-                                       Foreground="White"
-                                       FontSize="20"
-                                       FontWeight="Bold"/>
-
-                            <TextBlock Text="Add, search, edit and delete your saved passwords."
-                                       Foreground="#AFAFC0"
-                                       TextWrapping="Wrap"/>
-
-                            <Button Content="Open Password Manager"
-                                    Height="42"
-                                    Margin="0,12,0,0"
-                                    Background="#5149D8"
-                                    Foreground="White"
-                                    Click="OpenPasswordManager_Click"/>
-
-                        </StackPanel>
-
-                    </Border>
-
-                    <!-- Password Generator Card -->
-                    <Border Grid.Row="0"
-                            Grid.Column="1"
-                            Background="#28283E"
-                            CornerRadius="16"
-                            Padding="24">
-
-                        <StackPanel Spacing="14">
-
-                            <TextBlock Text="⚙"
-                                       FontSize="36"/>
-
-                            <TextBlock Text="Password Generator"
-                                       Foreground="White"
-                                       FontSize="20"
-                                       FontWeight="Bold"/>
-
-                            <TextBlock Text="Generate strong passwords using letters, numbers and symbols."
-                                       Foreground="#AFAFC0"
-                                       TextWrapping="Wrap"/>
-
-                            <Button Content="Generate Password"
-                                    Height="42"
-                                    Margin="0,12,0,0"
-                                    Background="#218F68"
-                                    Foreground="White"
-                                    Click="OpenPasswordGenerator_Click"/>
-
-                        </StackPanel>
-
-                    </Border>
-
-                    <!-- Future Card -->
-                    <Border Grid.Row="1"
-                            Grid.Column="0"
-                            Background="#28283E"
-                            CornerRadius="16"
-                            Padding="24">
-
-                        <StackPanel Spacing="14">
-
-                            <TextBlock Text="⭐"
-                                       FontSize="36"/>
-
-                            <TextBlock Text="Favorites"
-                                       Foreground="White"
-                                       FontSize="20"
-                                       FontWeight="Bold"/>
-
-                            <TextBlock Text="Favorite passwords will be available here later."
-                                       Foreground="#AFAFC0"
-                                       TextWrapping="Wrap"/>
-
-                            <Button Content="Coming Soon"
-                                    Height="42"
-                                    IsEnabled="False"/>
-
-                        </StackPanel>
-
-                    </Border>
-
-                    <!-- Future Card -->
-                    <Border Grid.Row="1"
-                            Grid.Column="1"
-                            Background="#28283E"
-                            CornerRadius="16"
-                            Padding="24">
-
-                        <StackPanel Spacing="14">
-
-                            <TextBlock Text="⚙"
-                                       FontSize="36"/>
-
-                            <TextBlock Text="Settings"
-                                       Foreground="White"
-                                       FontSize="20"
-                                       FontWeight="Bold"/>
-
-                            <TextBlock Text="Security and application settings will appear here."
-                                       Foreground="#AFAFC0"
-                                       TextWrapping="Wrap"/>
-
-                            <Button Content="Coming Soon"
-                                    Height="42"
-                                    IsEnabled="False"/>
-
-                        </StackPanel>
-
-                    </Border>
-
-                </Grid>
-
-            </StackPanel>
-
+            <TransitioningContentControl x:Name="MainContentArea"/>
         </ScrollViewer>
 
     </Grid>
