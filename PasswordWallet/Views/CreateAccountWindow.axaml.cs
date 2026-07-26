@@ -59,15 +59,28 @@ public partial class CreateAccountWindow : Window
             UserList.Add(newuser);
             Console.WriteLine("Account Created Succefully");
             MessageTextBlock.Foreground = Brushes.GreenYellow;
-            MessageTextBlock.Text="Account Created Successfully!";
+            MessageTextBlock.Text = "Account Created Successfully!";
+            UsernameTextBox.Clear();
+            PasswordTextBox.Clear();
+
         }
-        
 
 
-       
 
-        UsernameTextBox.Clear();
-        PasswordTextBox.Clear();
+
+
+
+
+    }
+
+
+    private void CloseButton_Click(object? sender, RoutedEventArgs e)
+    {
+
+        var loginWindow = new LoginWindow();
+
+        loginWindow.Show();
+        Close();
 
 
     }

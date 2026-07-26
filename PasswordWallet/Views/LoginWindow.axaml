@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     x:Class="PasswordWallet.Views.LoginWindow"
     Width="900"
-    Height="600"
+    Height="700"
     MinWidth="700"
     MinHeight="500"
     Title="Password Wallet"
