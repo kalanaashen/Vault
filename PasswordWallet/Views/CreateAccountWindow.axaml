@@ -1,12 +1,12 @@
 <Window
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    x:Class="PasswordWallet.Views.LoginWindow"
+    x:Class="PasswordWallet.Views.CreateAccountWindow"
     Width="900"
     Height="600"
     MinWidth="700"
     MinHeight="500"
-    Title="Password Wallet"
+    Title="Create Account"
     Background="#111827">
 
     <Grid>
@@ -63,14 +63,14 @@
                 <StackPanel Spacing="6">
 
                     <TextBlock
-                        Text="Welcome Back"
+                        Text="Create Account"
                         FontSize="28"
                         FontWeight="Bold"
                         Foreground="White"
                         HorizontalAlignment="Center"/>
 
                     <TextBlock
-                        Text="Sign in to access your password wallet"
+                        Text="Create account to access your password wallet"
                         FontSize="14"
                         Foreground="#9CA3AF"
                         HorizontalAlignment="Center"/>
@@ -93,6 +93,7 @@
                         Foreground="White"
                         BorderBrush="#4B5563"
                         BorderThickness="1"
+                        HorizontalAlignment="Center"
                         CornerRadius="10"
                         PlaceholderText="Enter your username"/>
                 </StackPanel>
@@ -115,6 +116,7 @@
                         BorderBrush="#4B5563"
                         BorderThickness="1"
                         CornerRadius="10"
+                        HorizontalAlignment="Center"
                         PasswordChar="●"
                         PlaceholderText="Enter your password"/>
                 </StackPanel>
@@ -123,7 +125,7 @@
                 <Button
                     Height="46"
                     Margin="0,8,0,0"
-                    Content="Login"
+                    Content="Create Account"
                     FontSize="15"
                     FontWeight="SemiBold"
                     Foreground="White"
@@ -132,33 +134,9 @@
                     HorizontalAlignment="Stretch"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
-                    Click="LoginButton_Click"/>
+                    Click="CreateAccountButton_Click"/>
 
-
-                <TextBlock
-                    Padding="3"
-                    Text="Dont Have an Account?"
-                    FontSize="12"
-                    Foreground="#6B7280"
-                    HorizontalAlignment="Center"
-                    Margin="0,4,0,0"/>
-
-                <Button
-                    Height="30"
-                   Click="CreateAccountButton_Click"
-                    Margin="0,8,0,0"
-                    Content="Create Account"
-                    FontSize="15"
-                    FontWeight="SemiBold"
-                    Foreground="White"
-                    Background="#5F89E5"
-                    CornerRadius="10"
-                    HorizontalAlignment="Stretch"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    />
-
-                <!-- Message -->
+             
                 <TextBlock
                     x:Name="MessageTextBlock"
                     FontSize="14"

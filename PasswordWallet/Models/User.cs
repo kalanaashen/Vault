@@ -18,5 +18,9 @@ namespace PasswordWallet.Models
             Username=username;
             Password=password;
         }
+        public User()
+        {
+            
+        }
     }
 }

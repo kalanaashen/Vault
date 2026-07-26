@@ -65,4 +65,13 @@ public partial class LoginWindow : Window
 
 
     }
+
+    private void CreateAccountButton_Click(object? sender, RoutedEventArgs e)
+    {
+
+        var CreateAccountWindow = new CreateAccountWindow();
+        CreateAccountWindow.Show();
+        Close();
+
+    }
 }
