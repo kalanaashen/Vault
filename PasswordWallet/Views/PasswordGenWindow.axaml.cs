@@ -9,7 +9,7 @@ using Avalonia.Input.Platform;
 
 namespace PasswordWallet.Views;
 
-public partial class PasswordGenWindow : Window
+public partial class PasswordGenWindow : UserControl
 {
 
 
@@ -65,9 +65,9 @@ public partial class PasswordGenWindow : Window
     private void BackButton_Click(object? sender, RoutedEventArgs e)
     {
 
-        Close();
 
 
+        this.IsVisible = false;
 
 
     }

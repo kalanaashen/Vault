@@ -1,6 +1,6 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        
+
         x:Class="PasswordWallet.Views.DashboardWindow"
         Title="Password Wallet Dashboard"
         Width="900"
@@ -80,8 +80,13 @@
         </Border>
 
         <!-- Right Side Dynamic Content -->
-        <ScrollViewer Grid.Column="1">
-            <TransitioningContentControl x:Name="MainContentArea"/>
+        <ScrollViewer  Grid.Column="1"
+                       HorizontalScrollBarVisibility="Disabled"
+                       VerticalScrollBarVisibility="Auto">
+            <TransitioningContentControl x:Name="MainContentArea" HorizontalAlignment="Stretch"
+                                         VerticalAlignment="Stretch"
+                                         HorizontalContentAlignment="Stretch"
+                                         VerticalContentAlignment="Stretch"/>
         </ScrollViewer>
 
     </Grid>

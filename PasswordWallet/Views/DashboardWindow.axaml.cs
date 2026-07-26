@@ -7,8 +7,13 @@ public partial class DashboardWindow : Window
 {
     private readonly DashboardHomeView _homeView = new();
 
+    private readonly MainWindow _passwordManagerView = new(); 
+    private readonly PasswordGenWindow _generatorView = new();
     public DashboardWindow()
     {
+
+
+
         InitializeComponent();
 
         // 1. Listen for card button clicks coming from DashboardHomeView
@@ -37,25 +42,23 @@ public partial class DashboardWindow : Window
         OpenPasswordGenerator();
     }
 
-    // --- Helper Methods to Open Your Windows ---
+   
 
     private void OpenPasswordManager()
     {
-        // Opens your existing MainWindow file as a popup/new window
-        var managerWindow = new MainWindow();
-        managerWindow.Show();
+        
+        MainContentArea.Content = _passwordManagerView;
     }
 
     private void OpenPasswordGenerator()
     {
-        // Opens your existing PasswordGenWindow file
-        var generatorWindow = new PasswordGenWindow();
-        generatorWindow.Show();
+      
+        MainContentArea.Content = _generatorView;
     }
 
     private void Logout_Click(object? sender, RoutedEventArgs e)
     {
-      
+
         var loginWindow = new LoginWindow();
         loginWindow.Show();
         this.Close();

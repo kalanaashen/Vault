@@ -7,7 +7,7 @@ using Avalonia.Controls.Documents;
 
 namespace PasswordWallet.Views;
 
-public partial class MainWindow : Window
+public partial class MainWindow : UserControl
 {
     private readonly ObservableCollection<PasswordEntry> _passwordEntries;
     private readonly ObservableCollection<PasswordEntry> _filteredEntries;
@@ -60,16 +60,16 @@ public partial class MainWindow : Window
     private void ShowPassword_Click(
     object? sender,
     RoutedEventArgs e)
-{
-    if (sender is Button button &&
-        button.CommandParameter is PasswordEntry entry)
     {
-        entry.IsPasswordVisible = !entry.IsPasswordVisible;
-        
-        
-        ApplySearchFilter();
+        if (sender is Button button &&
+            button.CommandParameter is PasswordEntry entry)
+        {
+            entry.IsPasswordVisible = !entry.IsPasswordVisible;
+
+
+            ApplySearchFilter();
+        }
     }
-}
     private void ApplySearchFilter()
     {
         string searchText = SearchTextBox.Text?.Trim() ?? "";
@@ -114,8 +114,12 @@ public partial class MainWindow : Window
             var dialog = new EditWindow(entry);
 
 
-            await dialog.ShowDialog(this);
+            var parentWindow = TopLevel.GetTopLevel(this) as Window;
 
+            if (parentWindow != null)
+            {
+                await dialog.ShowDialog(parentWindow);
+            }
             ApplySearchFilter();
             MessageTextBlock.Text = "Record updated successfully.";
 

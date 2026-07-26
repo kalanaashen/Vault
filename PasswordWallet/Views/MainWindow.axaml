@@ -1,13 +1,11 @@
-<Window
+<UserControl
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:models="using:PasswordWallet.Models"
     x:Class="PasswordWallet.Views.MainWindow"
-    Width="1000"
-    Height="700"
-    MinWidth="750"
-    MinHeight="550"
-    Title="Password Wallet"
+   
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
     Background="#111827">
 
     <Grid>
@@ -385,4 +383,4 @@
             </Border>
         </Grid>
     </Grid>
-</Window>
+</UserControl>
