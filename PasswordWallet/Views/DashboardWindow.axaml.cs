@@ -7,8 +7,10 @@ public partial class DashboardWindow : Window
 {
     private readonly DashboardHomeView _homeView = new();
 
-    private readonly MainWindow _passwordManagerView = new(); 
+    private readonly MainWindow _passwordManagerView = new();
     private readonly PasswordGenWindow _generatorView = new();
+
+    private readonly SettingsWindow _settingsView = new();
     public DashboardWindow()
     {
 
@@ -19,6 +21,7 @@ public partial class DashboardWindow : Window
         // 1. Listen for card button clicks coming from DashboardHomeView
         _homeView.OpenPasswordManagerRequested += (s, e) => OpenPasswordManager();
         _homeView.OpenPasswordGeneratorRequested += (s, e) => OpenPasswordGenerator();
+        _homeView.OpenSettingWindowRequested += (s, e) => OpenSettings();
 
         // 2. Load the dashboard home view by default inside the content area
         MainContentArea.Content = _homeView;
@@ -42,17 +45,17 @@ public partial class DashboardWindow : Window
         OpenPasswordGenerator();
     }
 
-   
+
 
     private void OpenPasswordManager()
     {
-        
+
         MainContentArea.Content = _passwordManagerView;
     }
 
     private void OpenPasswordGenerator()
     {
-      
+
         MainContentArea.Content = _generatorView;
     }
 
@@ -62,5 +65,11 @@ public partial class DashboardWindow : Window
         var loginWindow = new LoginWindow();
         loginWindow.Show();
         this.Close();
+    }
+
+    private void OpenSettings()
+    {
+
+        MainContentArea.Content = _settingsView;
     }
 }

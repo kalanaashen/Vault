@@ -10,6 +10,7 @@ public partial class DashboardHomeView : UserControl
     public event EventHandler? OpenPasswordManagerRequested;
     public event EventHandler? OpenPasswordGeneratorRequested;
 
+    public event EventHandler? OpenSettingWindowRequested;
     public DashboardHomeView()
     {
         InitializeComponent();
@@ -23,5 +24,14 @@ public partial class DashboardHomeView : UserControl
     private void OpenPasswordGenerator_Click(object? sender, RoutedEventArgs e)
     {
         OpenPasswordGeneratorRequested?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void OpenSettingButton_Click(object? sender, RoutedEventArgs e)
+    {
+
+        OpenSettingWindowRequested?.Invoke(this, EventArgs.Empty);
+
+
+
     }
 }

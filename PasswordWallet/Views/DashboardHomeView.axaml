@@ -78,7 +78,7 @@
                     <TextBlock Text="⚙" FontSize="36"/>
                     <TextBlock Text="Settings" Foreground="White" FontSize="20" FontWeight="Bold"/>
                     <TextBlock Text="Security and application settings will appear here." Foreground="#AFAFC0" TextWrapping="Wrap"/>
-                    <Button Content="Coming Soon" Height="42" IsEnabled="False"/>
+                    <Button Content="Open Settings" Height="42" Click="OpenSettingButton_Click"/>
                 </StackPanel>
 
             </Border>
