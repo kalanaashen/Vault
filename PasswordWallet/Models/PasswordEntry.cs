@@ -6,12 +6,19 @@ using System.Threading.Tasks;
 namespace PasswordWallet.Models
 {
     public class PasswordEntry
-    { 
-        public String Website {get; set;}="";
-        public String Username {get;set;}="";
-        public String Password {get;set;}="";
+    {
+        public int Id { get; set; }
 
-        public bool IsPasswordVisible {get;set;}=false;
+        public string Website { get; set; } = "";
+
+        public string Username { get; set; } = "";
+
+        public string Password { get; set; } = "";
+
+        public bool IsFavorite { get; set; }
+
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public bool IsPasswordVisible { get; set; } = false;
         public String DisplayPassword
         {
 
