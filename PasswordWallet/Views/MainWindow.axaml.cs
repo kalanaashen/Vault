@@ -4,22 +4,22 @@ using Avalonia.Interactivity;
 using PasswordWallet.Models;
 using System;
 using Avalonia.Controls.Documents;
-
+using PasswordWallet.Database;
 namespace PasswordWallet.Views;
 
 public partial class MainWindow : UserControl
 {
     private readonly ObservableCollection<PasswordEntry> _passwordEntries;
     private readonly ObservableCollection<PasswordEntry> _filteredEntries;
-
-
+    private readonly DatabaseService database = new DatabaseService();
+   
     public MainWindow()
     {
         InitializeComponent();
-
+         
         _passwordEntries = new ObservableCollection<PasswordEntry>();
         _filteredEntries = new ObservableCollection<PasswordEntry>();
-
+       
         PasswordList.ItemsSource = _filteredEntries;
     }
 
@@ -160,7 +160,7 @@ public partial class MainWindow : UserControl
             Username = username,
             Password = password
         };
-
+        database.InsertPassword(newEntry);
         _passwordEntries.Add(newEntry);
         _filteredEntries.Add(newEntry);
 

@@ -5,13 +5,15 @@ using PasswordWallet.Models;
 using System;
 using Avalonia.Media;
 using System.Collections.Generic;
+using PasswordWallet.Database;
 
 namespace PasswordWallet.Views;
 
 public partial class CreateAccountWindow : Window
 {
-    private List<User> UserList = new List<User>();
+    
     private User newuser = new User();
+    private readonly DatabaseService database = new DatabaseService();
 
 
     public CreateAccountWindow()
@@ -25,7 +27,7 @@ public partial class CreateAccountWindow : Window
         object? sender,
         RoutedEventArgs e)
     {
-        bool isFound = false;
+      
         string username = UsernameTextBox.Text?.Trim() ?? "";
         string password = PasswordTextBox.Text ?? "";
 
@@ -41,33 +43,23 @@ public partial class CreateAccountWindow : Window
             MessageTextBlock.Text = "Please enter a password.";
             return;
         }
-        foreach (var user in UserList)
+   
+
+        if (CheckExists(username))
         {
-            if (user.Username == username)
-            {
-                MessageTextBlock.Text = "User has been already Registered";
-                isFound = true;
-            }
-
-
-
+            MessageTextBlock.Foreground = Brushes.Red;
+            MessageTextBlock.Text = "Username already exists. Please choose a different username.";
+            return;
         }
-        if (!isFound)
-        {
             newuser.Username = username;
             newuser.Password = password;
-            UserList.Add(newuser);
+            
             Console.WriteLine("Account Created Succefully");
+            database.InsertUser(newuser);
             MessageTextBlock.Foreground = Brushes.GreenYellow;
             MessageTextBlock.Text = "Account Created Successfully!";
             UsernameTextBox.Clear();
             PasswordTextBox.Clear();
-
-        }
-
-
-
-
 
 
 
@@ -84,4 +76,18 @@ public partial class CreateAccountWindow : Window
 
 
     }
+
+
+
+
+    private bool CheckExists( String username)
+    {
+        
+        
+        var (success, user) = database.GetUserByUsername(username);
+    
+
+        return success;
+    }
+
 }

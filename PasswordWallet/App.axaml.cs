@@ -17,9 +17,11 @@ public partial class App : Application
 
     {
         DatabaseService database =
-new DatabaseService();
+            new DatabaseService();
 
         database.CreateDatabase();
+        database.CreateTable();
+        database.CreateUserTable();
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
 
