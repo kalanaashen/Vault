@@ -4,13 +4,13 @@ using Avalonia.Interactivity;
 using PasswordWallet.Models;
 using System;
 using Avalonia.Media;
-
+using PasswordWallet.Database;
 namespace PasswordWallet.Views;
 
 public partial class LoginWindow : Window
 {
-
-
+    private readonly DatabaseService database = new DatabaseService();
+    
     public LoginWindow()
     {
         InitializeComponent();
@@ -38,8 +38,10 @@ public partial class LoginWindow : Window
             MessageTextBlock.Text = "Please enter a password.";
             return;
         }
-
-        if (username == "admin" && password == "admin")
+        User user = new User();
+        bool success = false;
+        (success, user) = database.GetUserByUsername(username);
+        if (success && user.Password == password)
         {
             Console.WriteLine("Login Successful");
 
@@ -57,7 +59,7 @@ public partial class LoginWindow : Window
         }
 
 
-        var newUser = new User(username, password);
+
 
 
         UsernameTextBox.Clear();

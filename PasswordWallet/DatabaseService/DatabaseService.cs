@@ -1,5 +1,6 @@
 using Microsoft.Data.Sqlite;
 using PasswordWallet.Models;
+using System;
 namespace PasswordWallet.Database;
 
 public class DatabaseService
@@ -49,7 +50,27 @@ public class DatabaseService
             )";
         command.ExecuteNonQuery();
     }   
+    public void GetAllUsers()
+    {
+        using var connection =
+            new SqliteConnection(ConnectionString);
 
+        connection.Open();
+
+        using var command = connection.CreateCommand();
+        command.CommandText = @"
+            SELECT * FROM Users";
+
+        using var reader = command.ExecuteReader();
+        while (reader.Read())
+        {
+            int id = reader.GetInt32(0);
+            string username = reader.GetString(1);
+            string password = reader.GetString(2);
+
+            Console.WriteLine($"Id: {id}, Username: {username}, Password: {password}");
+        }
+    }
     public void InsertUser(User user)
     {
         
