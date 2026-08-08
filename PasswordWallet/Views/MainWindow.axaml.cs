@@ -12,18 +12,31 @@ public partial class MainWindow : UserControl
     private readonly ObservableCollection<PasswordEntry> _passwordEntries;
     private readonly ObservableCollection<PasswordEntry> _filteredEntries;
     private readonly DatabaseService database = new DatabaseService();
-   
+
     public MainWindow()
     {
         InitializeComponent();
-         
+
         _passwordEntries = new ObservableCollection<PasswordEntry>();
         _filteredEntries = new ObservableCollection<PasswordEntry>();
-       
+
         PasswordList.ItemsSource = _filteredEntries;
+        UpdatePasswordEntries();
     }
 
+    private void UpdatePasswordEntries()
+    {
 
+        _passwordEntries.Clear();
+        var entries = database.GetAllPasswords();
+        foreach (var entry in entries)
+        {
+            _passwordEntries.Add(entry);
+        }
+        ApplySearchFilter();
+
+
+    }
     private void DeleteButton_Click(object? sender, RoutedEventArgs e)
     {
 
@@ -31,11 +44,13 @@ public partial class MainWindow : UserControl
         if (sender is Button button && button.CommandParameter is PasswordEntry entry)
         {
 
-            bool isRemoved = _passwordEntries.Remove(entry);
-            _filteredEntries.Remove(entry);
+
+            bool isRemoved = database.DeletePassword(entry.Id);
 
             if (isRemoved)
             {
+                _passwordEntries.Remove(entry);
+                _filteredEntries.Remove(entry);
                 MessageTextBlock.Text = "Record Deleted Successfully";
             }
             else
@@ -118,12 +133,14 @@ public partial class MainWindow : UserControl
 
             if (parentWindow != null)
             {
-                await dialog.ShowDialog(parentWindow);
+                var wasUpdated = await dialog.ShowDialog<bool?>(parentWindow);
+
+                if (wasUpdated == true)
+                {
+                    UpdatePasswordEntries();
+                    MessageTextBlock.Text = "Record updated successfully.";
+                }
             }
-            ApplySearchFilter();
-            MessageTextBlock.Text = "Record updated successfully.";
-
-
         }
     }
 
@@ -160,9 +177,9 @@ public partial class MainWindow : UserControl
             Username = username,
             Password = password
         };
-        database.InsertPassword(newEntry);
+        newEntry.Id = database.InsertPassword(newEntry);
         _passwordEntries.Add(newEntry);
-        _filteredEntries.Add(newEntry);
+        ApplySearchFilter();
 
         MessageTextBlock.Text = "Password added successfully.";
 

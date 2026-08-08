@@ -15,7 +15,7 @@ namespace PasswordWallet.Models
 
         public string Password { get; set; } = "";
 
-        public bool IsFavorite { get; set; }
+        public bool IsFavorite { get; set; }= false;
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public bool IsPasswordVisible { get; set; } = false;
