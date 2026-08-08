@@ -37,32 +37,39 @@ public partial class MainWindow : UserControl
 
 
     }
-    private void DeleteButton_Click(object? sender, RoutedEventArgs e)
+    private async void DeleteButton_Click(object? sender, RoutedEventArgs e)
     {
 
 
         if (sender is Button button && button.CommandParameter is PasswordEntry entry)
         {
-
-
-            bool isRemoved = database.DeletePassword(entry.Id);
-
-            if (isRemoved)
+            var parentWindow = TopLevel.GetTopLevel(this) as Window;
+            if (parentWindow == null)
             {
-                _passwordEntries.Remove(entry);
-                _filteredEntries.Remove(entry);
-                MessageTextBlock.Text = "Record Deleted Successfully";
-            }
-            else
-            {
-                MessageTextBlock.Text = "Record Deletion UnSuccessfully";
+                return;
             }
 
+            var confirmationWindow = new ConfirmationWindow(
+                $"Delete the password for {entry.Website}? This cannot be undone.");
+            var isConfirmed = await confirmationWindow.ShowDialog<bool?>(parentWindow);
 
+            if (isConfirmed == true)
+            {
+                bool isRemoved = database.DeletePassword(entry.Id);
+
+                if (isRemoved)
+                {
+                    _passwordEntries.Remove(entry);
+                    _filteredEntries.Remove(entry);
+                    MessageTextBlock.Text = "Record deleted successfully.";
+                }
+                else
+                {
+                    MessageTextBlock.Text = "Unable to delete the record.";
+                }
+
+            }
         }
-
-
-
     }
     private void SearchTextBox_TextChanged(object? sender, TextChangedEventArgs e)
     {

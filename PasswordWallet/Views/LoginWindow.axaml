@@ -7,6 +7,7 @@
     MinWidth="700"
     MinHeight="500"
     Title="Password Wallet"
+    WindowStartupLocation="CenterScreen"
     Background="#111827">
 
     <Grid>
@@ -93,6 +94,8 @@
                         Foreground="White"
                         BorderBrush="#4B5563"
                         BorderThickness="1"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center"
                         CornerRadius="10"
                         PlaceholderText="Enter your username"/>
                 </StackPanel>
@@ -116,6 +119,8 @@
                         BorderThickness="1"
                         CornerRadius="10"
                         PasswordChar="●"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center"
                         PlaceholderText="Enter your password"/>
                 </StackPanel>
 
@@ -145,7 +150,7 @@
 
                 <Button
                     Height="30"
-                   Click="CreateAccountButton_Click"
+                    Click="CreateAccountButton_Click"
                     Margin="0,8,0,0"
                     Content="Create Account"
                     FontSize="15"

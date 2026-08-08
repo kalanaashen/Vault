@@ -70,6 +70,7 @@
                         Background="#B84040"
                         Foreground="White"
                         CornerRadius="10"
+                        
                         HorizontalAlignment="Stretch"
                         HorizontalContentAlignment="Center"
                         VerticalContentAlignment="Center"

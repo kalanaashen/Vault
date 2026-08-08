@@ -59,12 +59,17 @@ public partial class DashboardWindow : Window
         MainContentArea.Content = _generatorView;
     }
 
-    private void Logout_Click(object? sender, RoutedEventArgs e)
+    private async void Logout_Click(object? sender, RoutedEventArgs e)
     {
 
-        var loginWindow = new LoginWindow();
-        loginWindow.Show();
-        this.Close();
+        var confirmationWindow = new ConfirmationWindow("Are you sure you want to logout?");
+        var isConfirmed = await confirmationWindow.ShowDialog<bool?>(this);
+        if (isConfirmed == true)
+        {
+            var loginWindow = new LoginWindow();
+            loginWindow.Show();
+            this.Close();
+        }
     }
 
     private void OpenSettings()
