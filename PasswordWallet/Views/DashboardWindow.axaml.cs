@@ -1,5 +1,9 @@
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
+using PasswordWallet.Models;
+using PasswordWallet.Security;
+using SessionSecurity = PasswordWallet.Models.Security;
 
 namespace PasswordWallet.Views;
 
@@ -11,12 +15,17 @@ public partial class DashboardWindow : Window
     private readonly PasswordGenWindow _generatorView = new();
 
     private readonly SettingsWindow _settingsView = new();
+    private readonly AutoLockService _autoLockService = new(new SessionSecurity());
+
     public DashboardWindow()
     {
-
-
-
         InitializeComponent();
+
+        _autoLockService.LockRequired += LockSession;
+        PointerMoved += RecordActivity;
+        KeyDown += RecordActivity;
+        Opened += (_, _) => _autoLockService.Start();
+        Closed += (_, _) => _autoLockService.Dispose();
 
         // 1. Listen for card button clicks coming from DashboardHomeView
         _homeView.OpenPasswordManagerRequested += (s, e) => OpenPasswordManager();
@@ -66,10 +75,21 @@ public partial class DashboardWindow : Window
         var isConfirmed = await confirmationWindow.ShowDialog<bool?>(this);
         if (isConfirmed == true)
         {
-            var loginWindow = new LoginWindow();
-            loginWindow.Show();
-            this.Close();
+            LockSession();
         }
+    }
+
+    private void RecordActivity(object? sender, RoutedEventArgs e) =>
+        _autoLockService.ResetActivity();
+
+    private void LockSession()
+    {
+        _autoLockService.Stop();
+        CurrentUser.Clear();
+
+        var loginWindow = new LoginWindow();
+        loginWindow.Show();
+        Close();
     }
 
     private void OpenSettings()
