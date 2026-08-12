@@ -28,7 +28,7 @@ public partial class MainWindow : UserControl
     {
 
         _passwordEntries.Clear();
-        var entries = database.GetAllPasswords();
+        var entries = database.GetAllPasswords(CurrentUser.EncryptionKey);
         foreach (var entry in entries)
         {
             _passwordEntries.Add(entry);
@@ -184,7 +184,7 @@ public partial class MainWindow : UserControl
             Username = username,
             Password = password
         };
-        newEntry.Id = database.InsertPassword(newEntry);
+        newEntry.Id = database.InsertPassword(newEntry, CurrentUser.EncryptionKey);
         _passwordEntries.Add(newEntry);
         ApplySearchFilter();
 

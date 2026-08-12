@@ -45,7 +45,7 @@ public partial class EditWindow : Window
         _entry.Username = username;
         _entry.Password = password;
 
-        if (_dataService.UpdatePassword(_entry))
+        if (_dataService.UpdatePassword(_entry, CurrentUser.EncryptionKey))
         {
             Close(true);
         }

@@ -52,10 +52,10 @@ public partial class CreateAccountWindow : Window
             return;
         }
             newuser.Username = username;
-            newuser.Password = password;
+            newuser.Password = string.Empty;
             
             Console.WriteLine("Account Created Succefully");
-            database.InsertUser(newuser);
+            database.InsertUser(newuser, password);
             MessageTextBlock.Foreground = Brushes.GreenYellow;
             MessageTextBlock.Text = "Account Created Successfully!";
             UsernameTextBox.Clear();

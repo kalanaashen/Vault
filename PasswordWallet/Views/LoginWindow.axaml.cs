@@ -1,10 +1,13 @@
 using System.Collections.ObjectModel;
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Interactivity;
+using PasswordWallet.Database;
 using PasswordWallet.Models;
+using PasswordWallet.Security;
 using System;
 using Avalonia.Media;
-using PasswordWallet.Database;
+
 namespace PasswordWallet.Views;
 
 public partial class LoginWindow : Window
@@ -38,16 +41,29 @@ public partial class LoginWindow : Window
             MessageTextBlock.Text = "Please enter a password.";
             return;
         }
-        User user = new User();
+        User? user = null;
         bool success = false;
         (success, user) = database.GetUserByUsername(username);
-        if (success && user.Password == password)
+        bool isValidPassword = success && user is not null &&
+            (EncryptionService.VerifyPassword(password, user.Password) ||
+             (!EncryptionService.IsPasswordHash(user.Password) &&
+              string.Equals(user.Password, password, StringComparison.Ordinal)));
+
+        if (isValidPassword && user is not null)
         {
-            Console.WriteLine("Login Successful");
+            // Upgrade accounts created before password hashing was introduced.
+            if (!EncryptionService.IsPasswordHash(user.Password))
+            {
+                database.UpdateUserPassword(user.Id, password);
+            }
 
-            DashboardWindow dashboardWindow =
-            new DashboardWindow();
+            CurrentUser.Id = user.Id;
+            CurrentUser.Username = user.Username;
+            CurrentUser.EncryptionKey = EncryptionService.DeriveKey(password);
 
+            database.EncryptPlainTextPasswords(CurrentUser.EncryptionKey);
+
+            var dashboardWindow = new DashboardWindow();
             dashboardWindow.Show();
             Close();
         }
