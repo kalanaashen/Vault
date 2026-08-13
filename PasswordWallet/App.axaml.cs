@@ -3,7 +3,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using PasswordWallet.ViewModels;
 using PasswordWallet.Views;
-
+using PasswordWallet.Database;
 namespace PasswordWallet;
 
 public partial class App : Application
@@ -14,12 +14,20 @@ public partial class App : Application
     }
 
     public override void OnFrameworkInitializationCompleted()
+
     {
+        DatabaseService database =
+            new DatabaseService();
+
+        database.CreateDatabase();
+        database.CreateTable();
+        database.CreateUserTable();
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
+
             desktop.MainWindow = new LoginWindow
             {
-                
+
             };
         }
 

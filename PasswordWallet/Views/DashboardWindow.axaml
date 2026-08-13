@@ -1,0 +1,95 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+
+        x:Class="PasswordWallet.Views.DashboardWindow"
+        Title="Password Wallet Dashboard"
+        Width="900"
+        Height="600"
+        WindowStartupLocation="CenterScreen"
+        Background="#151525">
+
+    <Grid ColumnDefinitions="220,*">
+
+        <!-- Sidebar -->
+        <Border Grid.Column="0"
+                Background="#202035"
+                Padding="20">
+
+            <Grid RowDefinitions="Auto,*,Auto">
+
+                <StackPanel Grid.Row="0"
+                            Spacing="8">
+
+                    <TextBlock Text="🔐"
+                               FontSize="34"/>
+
+                    <TextBlock Text="Password Wallet"
+                               Foreground="White"
+                               FontSize="21"
+                               FontWeight="Bold"/>
+
+                    <TextBlock Text="Secure your accounts"
+                               Foreground="#A6A6B8"
+                               FontSize="13"/>
+
+                </StackPanel>
+
+                <StackPanel Grid.Row="1"
+                            Margin="0,35,0,0"
+                            Spacing="12">
+
+                    <Button Content="Dashboard"
+                            Height="45"
+                            CornerRadius="10"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Click="OpenDashboardHome_Click"/>
+
+                    <Button Content="Manage Passwords"
+                            Height="45"
+                            CornerRadius="10"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Click="OpenPasswordManager_Click"/>
+
+                    <Button Content="Password Generator"
+                            Height="45"
+                            CornerRadius="10"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Click="OpenPasswordGenerator_Click"/>
+
+                </StackPanel>
+
+                <Button Grid.Row="2"
+                        Content="Logout"
+                        Height="42"
+                        Background="#B84040"
+                        Foreground="White"
+                        CornerRadius="10"
+                        
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Click="Logout_Click"/>
+
+            </Grid>
+
+        </Border>
+
+        <!-- Right Side Dynamic Content -->
+        <ScrollViewer  Grid.Column="1"
+                       HorizontalScrollBarVisibility="Disabled"
+                       VerticalScrollBarVisibility="Auto">
+            <TransitioningContentControl x:Name="MainContentArea" HorizontalAlignment="Stretch"
+                                         VerticalAlignment="Stretch"
+                                         HorizontalContentAlignment="Stretch"
+                                         VerticalContentAlignment="Stretch"/>
+        </ScrollViewer>
+
+    </Grid>
+
+</Window>

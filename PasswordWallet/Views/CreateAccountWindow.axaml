@@ -1,18 +1,17 @@
 <Window
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    x:Class="PasswordWallet.Views.LoginWindow"
+    x:Class="PasswordWallet.Views.CreateAccountWindow"
     Width="900"
     Height="700"
     MinWidth="700"
     MinHeight="500"
-    Title="Password Wallet"
-    WindowStartupLocation="CenterScreen"
+    Title="Create Account"
     Background="#111827">
 
     <Grid>
 
-        <!-- Background decoration -->
+    
         <Ellipse
             Width="320"
             Height="320"
@@ -64,21 +63,21 @@
                 <StackPanel Spacing="6">
 
                     <TextBlock
-                        Text="Welcome Back"
+                        Text="Create Account"
                         FontSize="28"
                         FontWeight="Bold"
                         Foreground="White"
                         HorizontalAlignment="Center"/>
 
                     <TextBlock
-                        Text="Sign in to access your password wallet"
+                        Text="Create account to access your password wallet"
                         FontSize="14"
                         Foreground="#9CA3AF"
                         HorizontalAlignment="Center"/>
                 </StackPanel>
 
                 <!-- Username -->
-                <StackPanel Spacing="7">
+                <StackPanel Spacing="9">
 
                     <TextBlock
                         Text="Username"
@@ -94,8 +93,7 @@
                         Foreground="White"
                         BorderBrush="#4B5563"
                         BorderThickness="1"
-                        HorizontalContentAlignment="Left"
-                        VerticalContentAlignment="Center"
+                        HorizontalAlignment="Stretch"
                         CornerRadius="10"
                         PlaceholderText="Enter your username"/>
                 </StackPanel>
@@ -118,17 +116,16 @@
                         BorderBrush="#4B5563"
                         BorderThickness="1"
                         CornerRadius="10"
+                        HorizontalAlignment="Stretch"
                         PasswordChar="●"
-                        HorizontalContentAlignment="Left"
-                        VerticalContentAlignment="Center"
                         PlaceholderText="Enter your password"/>
                 </StackPanel>
 
-                <!-- Login button -->
+
                 <Button
                     Height="46"
                     Margin="0,8,0,0"
-                    Content="Login"
+                    Content="Create Account"
                     FontSize="15"
                     FontWeight="SemiBold"
                     Foreground="White"
@@ -137,33 +134,23 @@
                     HorizontalAlignment="Stretch"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
-                    Click="LoginButton_Click"/>
-
-
-                <TextBlock
-                    Padding="3"
-                    Text="Dont Have an Account?"
-                    FontSize="12"
-                    Foreground="#6B7280"
-                    HorizontalAlignment="Center"
-                    Margin="0,4,0,0"/>
+                    Click="CreateAccountButton_Click"/>
 
                 <Button
-                    Height="30"
-                    Click="CreateAccountButton_Click"
+                
                     Margin="0,8,0,0"
-                    Content="Create Account"
+                    Content="Close"
+                    Width="200"
                     FontSize="15"
+                    Padding="10"
                     FontWeight="SemiBold"
                     Foreground="White"
-                    Background="#5F89E5"
+                    Background="#82A6F4"
                     CornerRadius="10"
                     HorizontalAlignment="Stretch"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
-                    />
-
-                <!-- Message -->
+                    Click="CloseButton_Click"/>
                 <TextBlock
                     x:Name="MessageTextBlock"
                     FontSize="14"

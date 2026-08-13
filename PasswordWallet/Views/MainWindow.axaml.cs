@@ -4,14 +4,14 @@ using Avalonia.Interactivity;
 using PasswordWallet.Models;
 using System;
 using Avalonia.Controls.Documents;
-
+using PasswordWallet.Database;
 namespace PasswordWallet.Views;
 
-public partial class MainWindow : Window
+public partial class MainWindow : UserControl
 {
     private readonly ObservableCollection<PasswordEntry> _passwordEntries;
     private readonly ObservableCollection<PasswordEntry> _filteredEntries;
-
+    private readonly DatabaseService database = new DatabaseService();
 
     public MainWindow()
     {
@@ -21,33 +21,55 @@ public partial class MainWindow : Window
         _filteredEntries = new ObservableCollection<PasswordEntry>();
 
         PasswordList.ItemsSource = _filteredEntries;
+        UpdatePasswordEntries();
     }
 
+    private void UpdatePasswordEntries()
+    {
 
-    private void DeleteButton_Click(object? sender, RoutedEventArgs e)
+        _passwordEntries.Clear();
+        var entries = database.GetAllPasswords(CurrentUser.EncryptionKey);
+        foreach (var entry in entries)
+        {
+            _passwordEntries.Add(entry);
+        }
+        ApplySearchFilter();
+
+
+    }
+    private async void DeleteButton_Click(object? sender, RoutedEventArgs e)
     {
 
 
         if (sender is Button button && button.CommandParameter is PasswordEntry entry)
         {
-
-            bool isRemoved = _passwordEntries.Remove(entry);
-            _filteredEntries.Remove(entry);
-
-            if (isRemoved)
+            var parentWindow = TopLevel.GetTopLevel(this) as Window;
+            if (parentWindow == null)
             {
-                MessageTextBlock.Text = "Record Deleted Successfully";
-            }
-            else
-            {
-                MessageTextBlock.Text = "Record Deletion UnSuccessfully";
+                return;
             }
 
+            var confirmationWindow = new ConfirmationWindow(
+                $"Delete the password for {entry.Website}? This cannot be undone.");
+            var isConfirmed = await confirmationWindow.ShowDialog<bool?>(parentWindow);
 
+            if (isConfirmed == true)
+            {
+                bool isRemoved = database.DeletePassword(entry.Id);
+
+                if (isRemoved)
+                {
+                    _passwordEntries.Remove(entry);
+                    _filteredEntries.Remove(entry);
+                    MessageTextBlock.Text = "Record deleted successfully.";
+                }
+                else
+                {
+                    MessageTextBlock.Text = "Unable to delete the record.";
+                }
+
+            }
         }
-
-
-
     }
     private void SearchTextBox_TextChanged(object? sender, TextChangedEventArgs e)
     {
@@ -60,16 +82,16 @@ public partial class MainWindow : Window
     private void ShowPassword_Click(
     object? sender,
     RoutedEventArgs e)
-{
-    if (sender is Button button &&
-        button.CommandParameter is PasswordEntry entry)
     {
-        entry.IsPasswordVisible = !entry.IsPasswordVisible;
-        
-        
-        ApplySearchFilter();
+        if (sender is Button button &&
+            button.CommandParameter is PasswordEntry entry)
+        {
+            entry.IsPasswordVisible = !entry.IsPasswordVisible;
+
+
+            ApplySearchFilter();
+        }
     }
-}
     private void ApplySearchFilter()
     {
         string searchText = SearchTextBox.Text?.Trim() ?? "";
@@ -114,12 +136,18 @@ public partial class MainWindow : Window
             var dialog = new EditWindow(entry);
 
 
-            await dialog.ShowDialog(this);
+            var parentWindow = TopLevel.GetTopLevel(this) as Window;
 
-            ApplySearchFilter();
-            MessageTextBlock.Text = "Record updated successfully.";
+            if (parentWindow != null)
+            {
+                var wasUpdated = await dialog.ShowDialog<bool?>(parentWindow);
 
-
+                if (wasUpdated == true)
+                {
+                    UpdatePasswordEntries();
+                    MessageTextBlock.Text = "Record updated successfully.";
+                }
+            }
         }
     }
 
@@ -156,9 +184,9 @@ public partial class MainWindow : Window
             Username = username,
             Password = password
         };
-
+        newEntry.Id = database.InsertPassword(newEntry, CurrentUser.EncryptionKey);
         _passwordEntries.Add(newEntry);
-        _filteredEntries.Add(newEntry);
+        ApplySearchFilter();
 
         MessageTextBlock.Text = "Password added successfully.";
 

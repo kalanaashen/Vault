@@ -4,13 +4,17 @@ using Avalonia.Interactivity;
 using PasswordWallet.Models;
 using System;
 using Avalonia.Media;
+using PasswordWallet.Database;
 
 namespace PasswordWallet.Views;
 
 public partial class EditWindow : Window
 {
 
-    private PasswordEntry _entry;
+    private readonly DatabaseService _dataService = new DatabaseService();
+
+
+    private readonly PasswordEntry _entry;
 
     public EditWindow(PasswordEntry entry)
     {
@@ -23,18 +27,28 @@ public partial class EditWindow : Window
 
     }
 
-  
-    private   void ConfrimButton_Click(object? sender, RoutedEventArgs e)
+
+    private void ConfrimButton_Click(object? sender, RoutedEventArgs e)
     {
-        if (_entry == null)
+        string website = WebsiteTextBox.Text?.Trim() ?? "";
+        string username = UsernameTextBox.Text?.Trim() ?? "";
+        string password = PasswordTextBox.Text ?? "";
+
+        if (string.IsNullOrWhiteSpace(website) ||
+            string.IsNullOrWhiteSpace(username) ||
+            string.IsNullOrWhiteSpace(password))
         {
             return;
         }
-        _entry.Website = WebsiteTextBox.Text?.Trim() ?? "";
-        _entry.Username = UsernameTextBox.Text?.Trim() ?? "";
-        _entry.Password = PasswordTextBox.Text ?? "";
 
-        Close();
+        _entry.Website = website;
+        _entry.Username = username;
+        _entry.Password = password;
+
+        if (_dataService.UpdatePassword(_entry, CurrentUser.EncryptionKey))
+        {
+            Close(true);
+        }
 
     }
 
